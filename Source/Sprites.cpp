@@ -1,4 +1,5 @@
 
+
 #include <SFML/Graphics.hpp>
 #include <vector>
 #include <memory>
@@ -14,27 +15,16 @@ protected:
     double x;
     double y;
 public:
-    Sprite(Texture& texture)
-
+    Sprite(sf::Texture& texture)
     {
 
-    void set_Texture()
-    {
-        sf::sprite.setTexture(texture);
+        sprite.setTexture(texture);
+        sprite.setScale(scalex,scaley);
+        sprite.setPosition(x, y);
 
-
-    }
-    void set_Scale()
-    {
-        sf::sprite.setScale(scalex,scaley);
-    }
-    void set_Position()
-    {
-        sf::sprite.setPosition(x, y);
-    }
     }
 };
-class Player: public Sprite{
+class Player: public Sprites{
 protected:
     sf::Texture texture;
     sf::Sprite sprite;
@@ -47,33 +37,26 @@ protected:
 
 
 public:
-    Player(Sprite spite,Texture texture):Sprites(sprite,texture,scalex,scaley,x,y),speedx(speedx),speedy(speedy)
+    Player(sf::Sprite spite,sf::Texture texture):Sprites(sprite,texture,scalex,scaley,x,y),speedx(speedx),speedy(speedy){}
 
-        void movePlayer()
+    void movePlayer()
     {
 
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-    {
-        character->move(-1*speedx, 0);
-    }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-    {
-        character->move(speedx, 0);
-    }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-    {
-        character->move(0, -1*speedy);
-    }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-    {
-        character->move(0, speedy);
-    }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+        {
+            sprite.move(-1*speedx, 0);
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+        {
+            sprite.move(speedx, 0);
+        }
     }
 
-
-
-
+    void jump()
+    {if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+        {
+            sprite.move(0,speedy);
+        }
+    }
 
 };
-
-
