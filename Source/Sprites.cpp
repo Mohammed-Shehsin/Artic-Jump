@@ -212,6 +212,81 @@ public:
 //     float speed;
 // };
 
+// //Pickable
+
+// class Pickable : public Sprites
+// {
+// public:
+//     Pickable(const std::string& texturePath) : Sprites()
+//     {
+//         setTexture(texturePath);
+//     }
+    
+//     bool checkCollision(const Player& player)
+//     {
+//         return this->getGlobalBounds().intersects(player.getGlobalBounds());
+//     }
+// };
+
+// //Heart - Pickable
+
+// class Heart : public Pickable
+// {
+// public:
+//     Heart(const std::string& texturePath) : Pickable(texturePath) {}
+    
+//     bool checkCollision(Player& player)
+//     {
+//         if (player.getLives() < 3)
+//         {
+//             if (this->getGlobalBounds().intersects(player.getGlobalBounds()))
+//             {
+//                 player.incrementLives();
+//                 return true;
+//             }
+//         }
+//         return false;
+//     }
+// };
+
+// //Gold - Pickable
+
+// class Gold : public Pickable
+// {
+// public:
+//     Gold(const std::string& texturePath) : Pickable(texturePath) {}
+    
+//     bool checkCollision(Player& player)
+//     {
+//         if (this->getGlobalBounds().intersects(player.getGlobalBounds()))
+//         {
+//             player.incrementBonusPoints(5);
+//             return true;
+//         }
+//         return false;
+//     }
+// };
+
+// //InMovable -For Platform &&  BackGound
+// class Immovable : public Sprites
+// {
+// public:
+//     Immovable(const std::string& texturePath) : Sprites()
+//     {
+//         setTexture(texturePath);
+//     }
+    
+//     void setPosition(float x, float y)
+//     {
+//         this->setPosition(sf::Vector2f(x, y));
+//     }
+    
+//     void setScale(float scaleX, float scaleY)
+//     {
+//         this->setScale(sf::Vector2f(scaleX, scaleY));
+//     }
+// };
+
 
 
 
