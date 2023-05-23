@@ -101,6 +101,8 @@ public:
 //         jumpHeight = 10.0f;
 //         isJumping = false;
 //         jumpKeyPressed = false;
+//         lives = 3;
+//         bonusPoints = 0;
 //     }
     
 //     void moveInDirection()
@@ -150,13 +152,39 @@ public:
 //         }
 //     }
     
-// protected:
+//     void incrementBonusPoints(int points)
+//     {
+//         bonusPoints += points;
+//     }
+    
+//     void incrementLives()
+//     {
+//         if (lives < 3)
+//         {
+//             lives++;
+//         }
+//     }
+    
+//     int getLives() const
+//     {
+//         return lives;
+//     }
+    
+//     int getBonusPoints() const
+//     {
+//         return bonusPoints;
+//     }
+    
+// private:
 //     float speed;
 //     float jumpHeight;
 //     bool isJumping;
 //     float jumpDistance;
 //     bool jumpKeyPressed;
+//     int lives;
+//     int bonusPoints;
 // };
+
 
 // //Fireball class
 
