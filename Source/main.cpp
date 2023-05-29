@@ -16,23 +16,52 @@ int main()
 
    // Create objects
    //Player
-   std::unique_ptr<Player> player = std::make_unique<Player>(playerTexturePath);
-   player->setPosition(100.0f, 400.0f);
-   // 6 Platforms
-   std::vector<std::unique_ptr<Immovable>> platforms;
-   for (int i = 0; i < 6; i++) {
-       std::unique_ptr<Immovable> platform = std::make_unique<Immovable>(platformTexturePath);
-       platform->setPosition((i + 1) * 100.0f, 500.0f);
-       platform->setScale(2.0f, 1.0f);
-       platforms.push_back(std::move(platform));
-   }
-   // Fireballs
-   std::vector<std::unique_ptr<Fireball>> fireballs;
-   for (int i = 0; i < 3; i++) {
-       std::unique_ptr<Fireball> fireball = std::make_unique<Fireball>(fireballTexturePath);
-       fireball->setPosition(0.0f, 200.0f * i);
-       fireballs.push_back(std::move(fireball));
-   }
+     // Create objects
+    std::unique_ptr<Player> player = std::make_unique<Player>(playerTexturePath);
+    player->setPosition(100.0f, 400.0f);
+    player->setScale(0.15f,0.15f);
+
+//std:unique_ptr<Immovable> background = std::make_unique<Immovable>(backGroundTexurePath);
+
+    std::vector<std::unique_ptr<Immovable>> platforms;
+//    for (int i = 0; i < 6; i++) {
+        std::unique_ptr<Immovable> platform1 = std::make_unique<Immovable>(platformTexturePath);
+        platform1->setPosition( 500.0f, 500.0f);
+        platform1->setScale(1.0f, 1.0f);
+        platforms.push_back(std::move(platform1));
+        std::unique_ptr<Immovable> platform2 = std::make_unique<Immovable>(platformTexturePath);
+        platform2->setPosition( 100.0f, 100.0f);
+        platform2->setScale(1.0f, 1.0f);
+        platforms.push_back(std::move(platform2));
+        std::unique_ptr<Immovable> platform3 = std::make_unique<Immovable>(platformTexturePath);
+        platform3->setPosition( 500.0f, 100.0f);
+        platform3->setScale(1.0f, 1.0f);
+        platforms.push_back(std::move(platform3));
+        std::unique_ptr<Immovable> platform4 = std::make_unique<Immovable>(platformTexturePath);
+        platform4->setPosition( 100.0f, 500.0f);
+        platform4->setScale(1.0f, 1.0f);
+        platforms.push_back(std::move(platform4));
+        std::unique_ptr<Immovable> platform5 = std::make_unique<Immovable>(platformTexturePath);
+        platform5->setPosition( 0.0f, 850.0f);
+        platform5->setScale(5.0f, 1.0f);
+        platforms.push_back(std::move(platform5));
+//    }
+
+    std::vector<std::unique_ptr<Fireball>> fireballs;
+    //for (int i = 0; i < 3; i++) {
+        std::unique_ptr<Fireball> fireball1 = std::make_unique<Fireball>(fireballTexturePath);
+        fireball1->setPosition(0.0f, 200.0f );
+        fireball1->setScale(0.80f,0.80f);
+        fireballs.push_back(std::move(fireball1));
+        std::unique_ptr<Fireball> fireball2 = std::make_unique<Fireball>(fireballTexturePath);
+        fireball2->setPosition(0.0f, 400.0f );
+        fireball2->setScale(0.80f,0.80f);
+        fireballs.push_back(std::move(fireball2));
+        std::unique_ptr<Fireball> fireball3 = std::make_unique<Fireball>(fireballTexturePath);
+        fireball3->setPosition(0.0f, 600.0f );
+        fireball3->setScale(0.80f,0.80f);
+        fireballs.push_back(std::move(fireball3));
+   // }
     // Heart
    std::vector<std::unique_ptr<Heart>> hearts;
    for (int i = 0; i < 3; i++) {
