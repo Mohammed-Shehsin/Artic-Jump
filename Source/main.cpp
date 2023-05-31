@@ -93,9 +93,12 @@ int main()
 //        heart->setPosition(200.0f * (i + 1), 600.0f);
 //        hearts.push_back(std::move(heart));
 //    }
-
-    std::unique_ptr<Gold> gold = std::make_unique<Gold>(goldTexturePath);
-    gold->setPosition(500.0f, 600.0f);
+    
+  //gold
+  std::unique_ptr<Gold> gold = std::make_unique<Gold>(goldTexturePath);
+        std::pair<float, float> randomPosition = getRandomPosition();
+        gold->setPosition(randomPosition.first, randomPosition.second);
+        gold->setScale(0.40f, 0.40f);
 
     // Create a vector of Sprites
     std::vector<Sprites*> objects;
