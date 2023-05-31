@@ -122,5 +122,5 @@ private:
     int bonusPoints;
     float gravity;
     bool isOnPlatform;
-    float velocityy;
+    float velocityY;
 };
