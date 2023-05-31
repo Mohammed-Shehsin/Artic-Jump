@@ -14,7 +14,7 @@ public:
         bonusPoints = 0;
         gravity=4.5f;
         isOnPlatform=0;
-        velocityY=0f;
+        velocityY=0.0f;
     }
 
     void moveInDirection()
