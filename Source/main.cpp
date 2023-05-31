@@ -45,7 +45,8 @@ int main()
     player->setPosition(500.0f, 350.0f);
     player->setScale(0.15f,0.15f);
 
-//std:unique_ptr<Immovable> background = std::make_unique<Immovable>(backGroundTexurePath);
+    std:unique_ptr<Immovable> background = std::make_unique<Immovable>(backGroundTexurePath);
+    background->setTextureRect(sf::IntRect(0, 0, window.getSize().x, window.getSize().y));
 
     std::vector<std::unique_ptr<Immovable>> platforms;
 //    for (int i = 0; i < 6; i++) {
@@ -102,8 +103,8 @@ int main()
 
     // Create a vector of Sprites
     std::vector<Sprites*> objects;
+    objects.push_back((background.get()));
     objects.push_back(player.get());
- //   objects.push_back((background.get()));
     for (const auto& platform : platforms) {
         objects.push_back(platform.get());
     }
