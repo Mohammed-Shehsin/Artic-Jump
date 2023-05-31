@@ -1,3 +1,33 @@
+std::pair<float, float> getRandomPosition()
+{
+    static std::random_device rd;
+    static std::mt19937 gen(rd());
+    static std::uniform_real_distribution<float> distX(-800.0f, 1200.0f);
+    static std::uniform_real_distribution<float> distY(-800.0f, 800.0f);
+
+    float x = distX(gen);
+    float y = distY(gen);
+
+    // Check if the generated position falls within the restricted range
+    while ((x >= -250.0f && x <= 250.0f) ||
+           (x >= -800.0f && x <= 150.0f) ||
+           (x >= -650.0f && x <= -300.0f) ||
+           (x >= 10.0f && x <= -150.0f) ||
+           (x >= 300.0f && x <= 150.0f) ||
+           (y >= -250.0f && y <= 250.0f) ||
+           (y >= -800.0f && y <= 150.0f) ||
+           (y >= -650.0f && y <= -300.0f) ||
+           (y >= 10.0f && y <= -150.0f) ||
+           (y >= 300.0f && y <= 150.0f))
+    {
+        x = distX(gen);
+        y = distY(gen);
+    }
+
+    return std::make_pair(x, y);
+}
+
+
 int main()
 {
    sf::RenderWindow window(sf::VideoMode(1500, 1000), "Platformer Game");
