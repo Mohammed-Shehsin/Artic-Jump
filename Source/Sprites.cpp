@@ -87,7 +87,7 @@ public:
 
         if (!isJumping)
         {
-            float gravity=1.0f;
+            float gravity=2.5f;
             sf::Vector2f gravityMove(0.0f,speed * gravity);
             this->move(gravityMove);
 
