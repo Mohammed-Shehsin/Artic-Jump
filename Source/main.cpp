@@ -30,13 +30,13 @@ std::pair<float, float> getRandomPosition()
 
 int main()
 {
-   sf::RenderWindow window(sf::VideoMode(1500, 1000), "Platformer Game");
+    sf::RenderWindow window(sf::VideoMode(1500, 900), "Platformer Game");
 
     // Load textures
     std::string playerTexturePath = "C:\\Users\\moham\\OneDrive\\Documents\\build-game11-Desktop_Qt_6_4_3_MinGW_64_bit-Debug\\player_texture.png";
     std::string heartTexturePath = "C:\\Users\\moham\\OneDrive\\Documents\\build-game11-Desktop_Qt_6_4_3_MinGW_64_bit-Debug\\BG_heart.png";
     std::string goldTexturePath = "C:\\Users\\moham\\OneDrive\\Documents\\build-game11-Desktop_Qt_6_4_3_MinGW_64_bit-Debug\\BG_goldbag.png";
-    std::string platformTexturePath = "C:\\Users\\moham\\OneDrive\\Documents\\build-game11-Desktop_Qt_6_4_3_MinGW_64_bit-Debug\\BG_platform.png";
+    std::string platformTexturePath = "C:\\Users\\moham\\OneDrive\\Documents\\build-game11-Desktop_Qt_6_4_3_MinGW_64_bit-Debug\\wall.png";
     std::string fireballTexturePath = "C:\\Users\\moham\\OneDrive\\Documents\\build-game11-Desktop_Qt_6_4_3_MinGW_64_bit-Debug\\BG_fireball.png";
     std::string backGroundTexurePath = "C:\\Users\\moham\\OneDrive\\Documents\\build-game11-Desktop_Qt_6_4_3_MinGW_64_bit-Debug\\actic.png";
 
@@ -48,27 +48,28 @@ int main()
     std:unique_ptr<Immovable> background = std::make_unique<Immovable>(backGroundTexurePath);
     background->setTextureRect(sf::IntRect(0, 0, window.getSize().x, window.getSize().y));
 
+
     std::vector<std::unique_ptr<Immovable>> platforms;
 //    for (int i = 0; i < 6; i++) {
         std::unique_ptr<Immovable> platform1 = std::make_unique<Immovable>(platformTexturePath);
-        platform1->setPosition(-250,250);
-        platform1->setScale(1.1f, 0.90f);
+        platform1->setPosition(300,250);
+        platform1->setScale(1.2f, 0.40f);
         platforms.push_back(std::move(platform1));
         std::unique_ptr<Immovable> platform2 = std::make_unique<Immovable>(platformTexturePath);
-        platform2->setPosition( -800.0f, 150.0f);
-        platform2->setScale(1.1f, 0.90f);
+        platform2->setPosition( 120.0f, 650.0f);
+        platform2->setScale(1.2f, 0.40f);
         platforms.push_back(std::move(platform2));
         std::unique_ptr<Immovable> platform3 = std::make_unique<Immovable>(platformTexturePath);
-        platform3->setPosition( -650.0f, -300.0f);
-        platform3->setScale(1.1f, 0.90f);
+        platform3->setPosition( 650.0f, 500.0f);
+        platform3->setScale(1.2f, 0.40f);
         platforms.push_back(std::move(platform3));
         std::unique_ptr<Immovable> platform4 = std::make_unique<Immovable>(platformTexturePath);
-        platform4->setPosition( 10.0f, -150.0f);
-        platform4->setScale(1.1f, 0.90f);
+        platform4->setPosition( 1050.0f, 200.0f);
+        platform4->setScale(1.2f, 0.40f);
         platforms.push_back(std::move(platform4));
         std::unique_ptr<Immovable> platform5 = std::make_unique<Immovable>(platformTexturePath);
-        platform5->setPosition(300.0f, 150.0f);
-        platform5->setScale(1.1f, 0.90f);
+        platform5->setPosition(1200.0f, 800.0f);
+        platform5->setScale(1.2f, 0.40f);
         platforms.push_back(std::move(platform5));
 //    }
 
