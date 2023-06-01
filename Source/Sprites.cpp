@@ -4,6 +4,8 @@
 #include<memory>
 #include<algorithm>
 #include<string>
+#include<random>
+#include<utility>
 
 //Parent Class Sprite
 
