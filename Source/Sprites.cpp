@@ -191,26 +191,28 @@ private:
 
 //Fireball class
 
+//Fireball class
+
 class Fireball : public Sprites
 {
 public:
     Fireball(const std::string& texturePath) : Sprites()
     {
         setTexture(texturePath);
-        speed = 5.0f;
+        speed = 1.5f;
     }
-    
+
     void moveInDirection()
     {
-        sf::Vector2f movement(speed, 0.0f);
+        sf::Vector2f movement(speed,0.0f );
         this->move(movement);
     }
-    
+
     bool checkCollision(const Player& player)
     {
         return this->getGlobalBounds().intersects(player.getGlobalBounds());
     }
-    
+
 private:
     float speed;
 };
