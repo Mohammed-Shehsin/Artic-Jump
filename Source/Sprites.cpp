@@ -4,8 +4,9 @@
 #include<memory>
 #include<algorithm>
 #include<string>
-#include<random>
-#include<utility>
+#include <random>
+#include <utility>
+
 
 //Parent Class Sprite
 
@@ -31,6 +32,27 @@ private:
 };
 
 
+//InMovable -For Platform
+
+class Immovable : public Sprites
+{
+public:
+    Immovable(const std::string& texturePath) : Sprites()
+    {
+        setTexture(texturePath);
+    }
+
+    void setPosition(float x, float y)
+    {
+        sf::Sprite::setPosition(x, y);
+    }
+
+    void setScale(float scaleX, float scaleY)
+    {
+        sf::Sprite::setScale(scaleX, scaleY);
+    }
+};
+
 //Player class
 
 class Player : public Sprites
@@ -39,13 +61,15 @@ public:
     Player(const std::string& texturePath) : Sprites()
     {
         setTexture(texturePath);
-        speed = 0.50f;
+        speed = 0.80f;
         jumpHeight = 10.0f;
         isJumping = false;
         jumpKeyPressed = false;
         lives = 3;
         bonusPoints = 0;
+        isIntersect=false;
     }
+
     void moveInDirection()
     {
         float directionx = 0.0f;
@@ -69,10 +93,41 @@ public:
         isJumping=false;
     }
 
-    bool collision(const sf::Sprite& other)
-    {
-        return this->getGlobalBounds().intersects(other.getGlobalBounds());
+//    void collision(const sf::Sprite& others)
+//    {
+// for (const auto& other : others) {
+    void collision(const std::vector<std::unique_ptr<Immovable>>& platforms) {
+        for (const auto& platform : platforms) {
+            sf::FloatRect playerBounds = getGlobalBounds();
+            sf::FloatRect platformBounds = platform->getGlobalBounds();
+
+            if (playerBounds.intersects(platformBounds)) {
+                // Calculate the overlap between the player and platform
+                float overlapX = std::min(playerBounds.left + playerBounds.width, platformBounds.left + platformBounds.width) -
+                                 std::max(playerBounds.left, platformBounds.left);
+                float overlapY = std::min(playerBounds.top + playerBounds.height, platformBounds.top + platformBounds.height) -
+                                 std::max(playerBounds.top, platformBounds.top);
+
+                // Determine the axis of minimum penetration
+                if (overlapX < overlapY) {
+                    // Adjust player position horizontally
+                    if (playerBounds.left < platformBounds.left) {
+                        setPosition(platformBounds.left - playerBounds.width, getPosition().y);
+                    } else {
+                        setPosition(platformBounds.left + platformBounds.width, getPosition().y);
+                    }
+                } else {
+                    // Adjust player position vertically
+                    if (playerBounds.top < platformBounds.top) {
+                        setPosition(getPosition().x, platformBounds.top - playerBounds.height);
+                    } else {
+                        setPosition(getPosition().x, platformBounds.top + platformBounds.height);
+                    }
+                }
+            }
+        }
     }
+
 
 //    void jump()
 //    {
@@ -83,17 +138,19 @@ public:
 //        }
 //    }
 
-    void update()
+    void update(const std::vector<std::unique_ptr<Immovable>>& platforms)
     {
         moveInDirection();
+        collision(platforms);
 
         if (!isJumping)
         {
-            float gravity=2.5f;
+         float gravity=2.50f;
             sf::Vector2f gravityMove(0.0f,speed * gravity);
             this->move(gravityMove);
 
         }
+
     }
 
     void incrementBonusPoints(int points)
@@ -125,6 +182,7 @@ private:
     bool isJumping;
     float jumpDistance;
     bool jumpKeyPressed;
+    bool isIntersect;
     int lives;
     int bonusPoints;
 };
@@ -211,24 +269,3 @@ public:
         return false;
     }
 };
-
-//InMovable -For Platform
-class Immovable : public Sprites
-{
-public:
-    Immovable(const std::string& texturePath) : Sprites()
-    {
-        setTexture(texturePath);
-    }
-
-    void setPosition(float x, float y)
-    {
-        sf::Sprite::setPosition(x, y);
-    }
-
-    void setScale(float scaleX, float scaleY)
-    {
-        sf::Sprite::setScale(scaleX, scaleY);
-    }
-};
-
