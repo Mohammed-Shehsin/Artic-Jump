@@ -73,20 +73,38 @@ int main()
         platforms.push_back(std::move(platform5));
 //    }
 
-//    std::vector<std::unique_ptr<Fireball>> fireballs;
-//    //for (int i = 0; i < 3; i++) {
+   std::vector<std::unique_ptr<Fireball>> fireballs;
+////    //for (int i = 0; i < 3; i++) {
+        std::unique_ptr<Fireball> fireball1 = std::make_unique<Fireball>(fireballTexturePath);
+        fireball1->setPosition(-900.0f, 300.0f );
+        fireball1->setScale(0.80f,0.80f);
+        fireballs.push_back(std::move(fireball1));
+        std::unique_ptr<Fireball> fireball2 = std::make_unique<Fireball>(fireballTexturePath);
+        fireball2->setPosition(-900.0f, -300.0f );
+        fireball2->setScale(0.80f,0.80f);
+        fireballs.push_back(std::move(fireball2));
+        std::unique_ptr<Fireball> fireball3 = std::make_unique<Fireball>(fireballTexturePath);
+        fireball3->setPosition(-900.0f, 0.0f );
+        fireball3->setScale(0.80f,0.80f);
+        fireballs.push_back(std::move(fireball3));
+
+
+//        for (int i = 0; i < 3; i++) {
+
 //        std::unique_ptr<Fireball> fireball1 = std::make_unique<Fireball>(fireballTexturePath);
-//        fireball1->setPosition(0.0f, 200.0f );
-//        fireball1->setScale(0.80f,0.80f);
-//        fireballs.push_back(std::move(fireball1));
-//        std::unique_ptr<Fireball> fireball2 = std::make_unique<Fireball>(fireballTexturePath);
-//        fireball2->setPosition(0.0f, 400.0f );
-//        fireball2->setScale(0.80f,0.80f);
-//        fireballs.push_back(std::move(fireball2));
-//        std::unique_ptr<Fireball> fireball3 = std::make_unique<Fireball>(fireballTexturePath);
-//        fireball3->setPosition(0.0f, 600.0f );
-//        fireball3->setScale(0.80f,0.80f);
-//        fireballs.push_back(std::move(fireball3));
+//                fireball1->setPosition(-900.0f, 300.0f );
+//                fireball1->setScale(0.80f,0.80f);
+//                fireballs.push_back(std::move(fireball1));
+//                std::unique_ptr<Fireball> fireball2 = std::make_unique<Fireball>(fireballTexturePath);
+//                fireball2->setPosition(-900.0f, -300.0f );
+//                fireball2->setScale(0.80f,0.80f);
+//                fireballs.push_back(std::move(fireball2));
+//                std::unique_ptr<Fireball> fireball3 = std::make_unique<Fireball>(fireballTexturePath);
+//                fireball3->setPosition(-900.0f, 0.0f );
+//                fireball3->setScale(0.80f,0.80f);
+//                fireballs.push_back(std::move(fireball3));
+//        }
+
    // }
 
 //    std::vector<std::unique_ptr<Heart>> hearts;
@@ -95,13 +113,20 @@ int main()
 //        heart->setPosition(200.0f * (i + 1), 600.0f);
 //        hearts.push_back(std::move(heart));
 //    }
-    
-  //gold
-  std::unique_ptr<Gold> gold = std::make_unique<Gold>(goldTexturePath);
+
+
+
+        std::unique_ptr<Gold> gold = std::make_unique<Gold>(goldTexturePath);
         std::pair<float, float> randomPosition = getRandomPosition();
         gold->setPosition(randomPosition.first, randomPosition.second);
         gold->setScale(0.40f, 0.40f);
 
+
+
+
+//    std::unique_ptr<Gold> gold = std::make_unique<Gold>(goldTexturePath);
+//    gold->setPosition(500.0f, 600.0f);
+//    gold->setScale(0.25f,0.25f);
     // Create a vector of Sprites
     std::vector<Sprites*> objects;
     objects.push_back((background.get()));
@@ -109,9 +134,9 @@ int main()
     for (const auto& platform : platforms) {
         objects.push_back(platform.get());
     }
-//    for (const auto& fireball : fireballs) {
-//        objects.push_back(fireball.get());
-//    }
+    for (const auto& fireball : fireballs) {
+        objects.push_back(fireball.get());
+    }
 //    for (const auto& heart : hearts) {
 //        objects.push_back(heart.get());
 //    }
@@ -127,42 +152,33 @@ int main()
             if (event.type == sf::Event::Closed)
                 window.close();
         }
-
         // Update player movement and collision
-        player->update();
+        player->update(platforms);
+//        // move the fire balls
+//        for (const auto& fireball : fireballs) {
+//            fireball->moveInDirection();
+//        }
 
-        // Check collision with platforms
-        //for (const auto& platform : platforms) {
-          //  if (player->collision(*platform)) {
-//                sf::FloatRect playerborders = player->getGlobalBounds();
-//                sf::FloatRect platformborders = platform->getGlobalBounds();
-//               // if(player->getGlobalBounds().intersects(platformborders)){
-//                    if(playerborders.top > platformborders.top + platformborders.height && playerborders.left + playerborders.width > platformborders.left
-//                        && playerborders.left < platformborders.left + platformborders.width){
-//                        player->setPosition(player->getPosition().x, platformborders.top + platformborders.height);
-//                        break;
-//                    }
-//                    else if(playerborders.top < platformborders.top - playerborders.height && playerborders.left > platformborders.left - playerborders.width
-//                             && playerborders.left < platformborders.left +platformborders.width){
-//                        player->setPosition(player->getPosition().x,platformborders.top - playerborders.height);
-//                        break;
-//                    }
-//                    else if(playerborders.left < platformborders.left - playerborders.width && playerborders.top > platformborders.top - platformborders.height
-//                             && playerborders.top < platformborders.top + platformborders.height){
-//                        player->setPosition(platformborders.left -playerborders.width, player->getPosition().y);
-//                        break;
-//                    }
-//                    else if(playerborders.left > platformborders.left + platformborders.width && playerborders.top > platformborders.top - playerborders.height
-//                             && playerborders.top < platformborders.top + platformborders.height){
-//                        player->setPosition(platformborders.left + platformborders.width, player->getPosition().y);
-//                        break;
-//                    }
+        for (const auto& fireball : fireballs) {
+            fireball->moveInDirection();
 
-//      //  }
-          //}
-            player->collision(platforms);
+            // Check if the fireball has passed the window's right edge
+            if (fireball->getPosition().x > window.getSize().x) {
+                // Set the fireball's position off-screen to the left
+                sf::Vector2f pos= fireball->getPosition();
+                fireball->setPosition(-900.0f, pos.y);
 
-     //   }
+                // Update the position of the next fireball
+                float lastFireballX = fireball->getPosition().x;
+                float nextFireballX = lastFireballX - 300.0f;
+                if (nextFireballX < -900.0f) {
+                    nextFireballX = -900.0f;
+                }
+                fireball->setPosition(nextFireballX, pos.y);
+            }
+        }
+
+
         // Check collision with fireballs
 //        for (const auto& fireball : fireballs) {
 //            if (fireball->checkCollision(*player)) {
