@@ -199,12 +199,17 @@ public:
     Fireball(const std::string& texturePath) : Sprites()
     {
         setTexture(texturePath);
-        speed = 1.5f;
+        speed = getRandomSpeed();
     }
 
     void moveInDirection()
     {
-        sf::Vector2f movement(speed,0.0f );
+        std::random_device rd;
+        std::mt19937 gen(rd());
+        std::uniform_real_distribution<float> distribution(0.0f, 2.0f);
+
+        float randomValue = distribution(gen);
+        sf::Vector2f movement(randomValue+speed,0.0f );
         this->move(movement);
     }
 
@@ -213,10 +218,20 @@ public:
         return this->getGlobalBounds().intersects(player.getGlobalBounds());
     }
 
+
+
 private:
     float speed;
-};
 
+    float getRandomSpeed()
+    {
+        std::random_device rd;
+        std::mt19937 gen(rd());
+        std::uniform_real_distribution<float> speedDistribution(0.1f, 2.5f); // Adjust the range of speed as needed
+
+        return speedDistribution(gen);
+    }
+};
 //Pickable
 
 class Pickable : public Sprites
