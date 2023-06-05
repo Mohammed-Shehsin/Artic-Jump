@@ -6,7 +6,10 @@
 #include<string>
 #include <random>
 #include <utility>
-
+#include <chrono>
+#include <thread>
+#include <cstdlib>
+#include <ctime>
 
 //Parent Class Sprite
 
