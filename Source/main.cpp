@@ -26,6 +26,25 @@ std::pair<float, float> getRandomPosition()
 
     return std::make_pair(x, y);
 }
+void createFireballs(std::string fireballTexturePath ,std::vector<std::unique_ptr<Fireball>> &fireballs ){
+    
+    std::unique_ptr<Fireball> fireball1 = std::make_unique<Fireball>(fireballTexturePath);
+    fireball1->setPosition(-900.0f, 300.0f );
+    fireball1->setScale(0.80f,0.80f);
+    fireballs.push_back(std::move(fireball1));
+    
+    std::unique_ptr<Fireball> fireball2 = std::make_unique<Fireball>(fireballTexturePath);
+    fireball2->setPosition(-900.0f, -300.0f );
+    fireball2->setScale(0.80f,0.80f);
+    fireballs.push_back(std::move(fireball2));
+    std::unique_ptr<Fireball> fireball3 = std::make_unique<Fireball>(fireballTexturePath);
+    fireball3->setPosition(-900.0f, 0.0f );
+    fireball3->setScale(0.80f,0.80f);
+    fireballs.push_back(std::move(fireball3));
+    
+    
+}
+
 
 
 int main()
