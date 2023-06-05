@@ -44,7 +44,13 @@ void createFireballs(std::string fireballTexturePath ,std::vector<std::unique_pt
     
     
 }
-
+void restartGame(const std::unique_ptr<Player> &player,std::string fireballTexturePath ,std::vector<std::unique_ptr<Fireball>> &fireballs) {
+    // Reset the player's position and other game states
+    player->setPosition(700.0f, 350.0f);
+    fireballs.clear();
+    createFireballs(fireballTexturePath,fireballs);  // Function to create initial fireballs
+    
+}
 
 
 int main()
