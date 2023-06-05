@@ -1,4 +1,4 @@
-std::pair<float, float> getRandomPosition()
+std::pair<float, float> getRandomPosition()   //To get Random positions {Fireballs}
 {
     static std::random_device rd;
     static std::mt19937 gen(rd());
@@ -26,7 +26,7 @@ std::pair<float, float> getRandomPosition()
 
     return std::make_pair(x, y);
 }
-void createFireballs(std::string fireballTexturePath ,std::vector<std::unique_ptr<Fireball>> &fireballs ){
+void createFireballs(std::string fireballTexturePath ,std::vector<std::unique_ptr<Fireball>> &fireballs ){   //Creating fireballs {3 Fireballs }
     
     std::unique_ptr<Fireball> fireball1 = std::make_unique<Fireball>(fireballTexturePath);
     fireball1->setPosition(-900.0f, 300.0f );
@@ -44,19 +44,19 @@ void createFireballs(std::string fireballTexturePath ,std::vector<std::unique_pt
     
     
 }
-void restartGame(const std::unique_ptr<Player> &player,std::string fireballTexturePath ,std::vector<std::unique_ptr<Fireball>> &fireballs) {
+void restartGame(const std::unique_ptr<Player> &player,std::string fireballTexturePath ,std::vector<std::unique_ptr<Fireball>> &fireballs) {    
     // Reset the player's position and other game states
     player->setPosition(700.0f, 350.0f);
     fireballs.clear();
     createFireballs(fireballTexturePath,fireballs);  // Function to create initial fireballs
     
 }
-void createGold(std::unique_ptr<Gold> &gold ,const sf::RenderWindow& window ){
+void createGold(std::unique_ptr<Gold> &gold ,const sf::RenderWindow& window ){   // Creating Gold object
     std::pair<float, float> position = getRandomPosition(window);
     gold->setPosition(position.first, position.second);
     gold->setScale(0.40f, 0.40f);
 }
-void createHeart(std::unique_ptr<Heart> &heart ,const sf::RenderWindow& window ){
+void createHeart(std::unique_ptr<Heart> &heart ,const sf::RenderWindow& window ){   //Creating Heart object
     std::pair<float, float> position = getRandomPosition(window);
     heart->setPosition(position.first, position.second);
     heart->setScale(0.20f, 0.20f);
@@ -76,16 +76,15 @@ int main()
     std::string backGroundTexurePath = "C:\\Users\\moham\\OneDrive\\Documents\\build-game11-Desktop_Qt_6_4_3_MinGW_64_bit-Debug\\actic.png";
 
     // Create objects
-    std::unique_ptr<Player> player = std::make_unique<Player>(playerTexturePath);
+    std::unique_ptr<Player> player = std::make_unique<Player>(playerTexturePath);       // Player object
     player->setPosition(500.0f, 350.0f);
     player->setScale(0.15f,0.15f);
 
-    std:unique_ptr<Immovable> background = std::make_unique<Immovable>(backGroundTexurePath);
+    std:unique_ptr<Immovable> background = std::make_unique<Immovable>(backGroundTexurePath);   // Background
     background->setTextureRect(sf::IntRect(0, 0, window.getSize().x, window.getSize().y));
 
 
-    std::vector<std::unique_ptr<Immovable>> platforms;
-//    for (int i = 0; i < 6; i++) {
+        std::vector<std::unique_ptr<Immovable>> platforms;                                             // Platforms {5}
         std::unique_ptr<Immovable> platform1 = std::make_unique<Immovable>(platformTexturePath);
         platform1->setPosition(300,250);
         platform1->setScale(1.2f, 0.40f);
@@ -108,60 +107,14 @@ int main()
         platforms.push_back(std::move(platform5));
 //    }
 
-   std::vector<std::unique_ptr<Fireball>> fireballs;
-////    //for (int i = 0; i < 3; i++) {
-        std::unique_ptr<Fireball> fireball1 = std::make_unique<Fireball>(fireballTexturePath);
-        fireball1->setPosition(-900.0f, 300.0f );
-        fireball1->setScale(0.80f,0.80f);
-        fireballs.push_back(std::move(fireball1));
-        std::unique_ptr<Fireball> fireball2 = std::make_unique<Fireball>(fireballTexturePath);
-        fireball2->setPosition(-900.0f, -300.0f );
-        fireball2->setScale(0.80f,0.80f);
-        fireballs.push_back(std::move(fireball2));
-        std::unique_ptr<Fireball> fireball3 = std::make_unique<Fireball>(fireballTexturePath);
-        fireball3->setPosition(-900.0f, 0.0f );
-        fireball3->setScale(0.80f,0.80f);
-        fireballs.push_back(std::move(fireball3));
+        std::vector<std::unique_ptr<Fireball>> fireballs;      // Fireball objects
+        createFireballs(fireballTexturePath,fireballs);
 
+        std::unique_ptr<Heart> hearts = std::make_unique<Heart>(heartTexturePath);;  //Heart object
+        createHeart(hearts,window);
+        std::unique_ptr<Gold> gold = std::make_unique<Gold>(goldTexturePath);   // Gold object
+        createGold(gold,window);
 
-//        for (int i = 0; i < 3; i++) {
-
-//        std::unique_ptr<Fireball> fireball1 = std::make_unique<Fireball>(fireballTexturePath);
-//                fireball1->setPosition(-900.0f, 300.0f );
-//                fireball1->setScale(0.80f,0.80f);
-//                fireballs.push_back(std::move(fireball1));
-//                std::unique_ptr<Fireball> fireball2 = std::make_unique<Fireball>(fireballTexturePath);
-//                fireball2->setPosition(-900.0f, -300.0f );
-//                fireball2->setScale(0.80f,0.80f);
-//                fireballs.push_back(std::move(fireball2));
-//                std::unique_ptr<Fireball> fireball3 = std::make_unique<Fireball>(fireballTexturePath);
-//                fireball3->setPosition(-900.0f, 0.0f );
-//                fireball3->setScale(0.80f,0.80f);
-//                fireballs.push_back(std::move(fireball3));
-//        }
-
-   // }
-
-//    std::vector<std::unique_ptr<Heart>> hearts;
-//    for (int i = 0; i < 3; i++) {
-//        std::unique_ptr<Heart> heart = std::make_unique<Heart>(heartTexturePath);
-//        heart->setPosition(200.0f * (i + 1), 600.0f);
-//        hearts.push_back(std::move(heart));
-//    }
-
-
-
-        std::unique_ptr<Gold> gold = std::make_unique<Gold>(goldTexturePath);
-        std::pair<float, float> randomPosition = getRandomPosition();
-        gold->setPosition(randomPosition.first, randomPosition.second);
-        gold->setScale(0.40f, 0.40f);
-
-
-
-
-//    std::unique_ptr<Gold> gold = std::make_unique<Gold>(goldTexturePath);
-//    gold->setPosition(500.0f, 600.0f);
-//    gold->setScale(0.25f,0.25f);
     // Create a vector of Sprites
     std::vector<Sprites*> objects;
     objects.push_back((background.get()));
@@ -172,9 +125,8 @@ int main()
     for (const auto& fireball : fireballs) {
         objects.push_back(fireball.get());
     }
-//    for (const auto& heart : hearts) {
-//        objects.push_back(heart.get());
-//    }
+    objects.push_back(hearts.get());
+
     objects.push_back(gold.get());
 
     int score = 0;
@@ -189,10 +141,6 @@ int main()
         }
         // Update player movement and collision
         player->update(platforms);
-//        // move the fire balls
-//        for (const auto& fireball : fireballs) {
-//            fireball->moveInDirection();
-//        }
 
         for (const auto& fireball : fireballs) {
             fireball->moveInDirection();
@@ -221,21 +169,16 @@ int main()
 //            }
 //        }
 
-        // Check collision with hearts
-//        for (const auto& heart : hearts) {
-//            if (heart->checkCollision(*player)) {
-//                // Handle heart collision
-//                hearts.erase(std::remove_if(hearts.begin(), hearts.end(), [&](const std::unique_ptr<Heart>& h) {
-//                                 return h.get() == heart.get();
-//                             }), hearts.end());
-
-//                score++;
-//            }
-//        }
+  // Check collision with hearts
+        if (hearts->checkCollision(*player)) {
+            createHeart(hearts,window);
+            cout<<"heart"<<endl;
+       }
 
         // Check collision with gold
         if (gold->checkCollision(*player)) {
             // Handle gold collision
+            createGold(gold,window);
             score += 5;
         }
 
