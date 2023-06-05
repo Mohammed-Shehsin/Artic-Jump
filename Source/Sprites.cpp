@@ -96,9 +96,6 @@ public:
         isJumping=false;
     }
 
-//    void collision(const sf::Sprite& others)
-//    {
-// for (const auto& other : others) {
     void collision(const std::vector<std::unique_ptr<Immovable>>& platforms) {
         for (const auto& platform : platforms) {
             sf::FloatRect playerBounds = getGlobalBounds();
@@ -131,15 +128,6 @@ public:
         }
     }
 
-
-//    void jump()
-//    {
-//        if (!isJumping && sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
-//        {
-//            isJumping = true;
-//            jumpDistance = jumpHeight;
-//        }
-//    }
 
     void update(const std::vector<std::unique_ptr<Immovable>>& platforms)
     {
@@ -189,10 +177,6 @@ private:
     int lives;
     int bonusPoints;
 };
-
-
-
-//Fireball class
 
 //Fireball class
 
