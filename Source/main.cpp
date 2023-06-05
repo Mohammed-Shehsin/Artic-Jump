@@ -56,6 +56,12 @@ void createGold(std::unique_ptr<Gold> &gold ,const sf::RenderWindow& window ){
     gold->setPosition(position.first, position.second);
     gold->setScale(0.40f, 0.40f);
 }
+void createHeart(std::unique_ptr<Heart> &heart ,const sf::RenderWindow& window ){
+    std::pair<float, float> position = getRandomPosition(window);
+    heart->setPosition(position.first, position.second);
+    heart->setScale(0.20f, 0.20f);
+}
+
 
 int main()
 {
