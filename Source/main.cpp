@@ -51,7 +51,11 @@ void restartGame(const std::unique_ptr<Player> &player,std::string fireballTextu
     createFireballs(fireballTexturePath,fireballs);  // Function to create initial fireballs
     
 }
-
+void createGold(std::unique_ptr<Gold> &gold ,const sf::RenderWindow& window ){
+    std::pair<float, float> position = getRandomPosition(window);
+    gold->setPosition(position.first, position.second);
+    gold->setScale(0.40f, 0.40f);
+}
 
 int main()
 {
