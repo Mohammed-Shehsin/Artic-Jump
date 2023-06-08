@@ -172,7 +172,8 @@ int main()
             player->setPosition(700.0f, 350.0f);
             fireballs.clear();
             createFireballs(fireballTexturePath,fireballs);
-            
+            createHeart(hearts,window);
+            createGold(gold,window);
 
             }
         }
