@@ -132,6 +132,15 @@ int main()
     const int bonus = 5;
     int life;
     
+    // For music
+    sf::Music music;
+    if (!music.openFromFile("C:\\Users\\moham\\OneDrive\\Documents\\build-game11-Desktop_Qt_6_4_3_MinGW_64_bit-Debug\\2gucu-s4oo4.wav"))
+    {
+        return EXIT_FAILURE;
+    }
+    music.setLoop(true);
+    music.play();
+    
     while (window.isOpen())
     {
         sf::Event event;
