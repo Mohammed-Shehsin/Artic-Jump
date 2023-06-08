@@ -144,7 +144,12 @@ int main()
        player->update(platforms,window,life);
         hearts->update(window);
         gold->update(window);
+        
+        if (life==0){
+            player->resetLives();
+            window.close();
 
+        }
         for (const auto& fireball : fireballs) {
             fireball->moveInDirection();
 
@@ -175,11 +180,7 @@ int main()
             createFireballs(fireballTexturePath,fireballs);
             createHeart(hearts,window);
             createGold(gold,window);
-             if (life==0){
-                    window.close();
-                    player->resetLives();
-            }
-          
+            life=player->getLives();
             }
         }
 
@@ -197,7 +198,7 @@ int main()
             // Handle gold collision
             createGold(gold,window);
             player->incrementBonusPoints(bonus);
-            score += 5;
+          
         }
 
         window.clear();
