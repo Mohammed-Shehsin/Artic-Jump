@@ -128,15 +128,45 @@ public:
         }
     }
 
-
-    void update(const std::vector<std::unique_ptr<Immovable>>& platforms)
+   void update(const std::vector<std::unique_ptr<Immovable>>& platforms,const sf::RenderWindow& window)
     {
         moveInDirection();
         collision(platforms);
 
+        // Check collision with the window boundaries
+        sf::FloatRect playerBounds = getGlobalBounds();
+        sf::FloatRect windowBounds(0.0f, 0.0f, window.getSize().x, window.getSize().y);
+
+        if (!windowBounds.contains(playerBounds.left, playerBounds.top)
+            || !windowBounds.contains(playerBounds.left + playerBounds.width, playerBounds.top)
+            || !windowBounds.contains(playerBounds.left, playerBounds.top + playerBounds.height)
+            || !windowBounds.contains(playerBounds.left + playerBounds.width, playerBounds.top + playerBounds.height))
+        {
+            // Adjust player position to stay within the window
+            sf::Vector2f newPosition;
+
+            if (playerBounds.left < 0.0f)
+                newPosition.x = 0.0f;
+            else if (playerBounds.left + playerBounds.width > windowBounds.width)
+                newPosition.x = windowBounds.width - playerBounds.width;
+            else
+                newPosition.x = getPosition().x;
+
+            if (playerBounds.top < 0.0f)
+                newPosition.y = 0.0f;
+            else if (playerBounds.top + playerBounds.height > windowBounds.height)
+                newPosition.y = windowBounds.height - playerBounds.height;
+            else
+                newPosition.y = getPosition().y;
+
+            setPosition(newPosition);
+        }
+
+
+
         if (!isJumping)
         {
-         float gravity=2.50f;
+            float gravity=2.50f;
             sf::Vector2f gravityMove(0.0f,speed * gravity);
             this->move(gravityMove);
 
