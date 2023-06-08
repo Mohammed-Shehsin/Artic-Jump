@@ -219,11 +219,12 @@ public:
         speed = getRandomSpeed();
     }
 
+   
     void moveInDirection()
     {
         std::random_device rd;
         std::mt19937 gen(rd());
-        std::uniform_real_distribution<float> distribution(0.0f, 2.0f);
+        std::uniform_real_distribution<float> distribution(0.0f, 0.8f);
 
         float randomValue = distribution(gen);
         sf::Vector2f movement(randomValue+speed,0.0f );
@@ -244,11 +245,12 @@ private:
     {
         std::random_device rd;
         std::mt19937 gen(rd());
-        std::uniform_real_distribution<float> speedDistribution(0.1f, 2.5f); // Adjust the range of speed as needed
+        std::uniform_real_distribution<float> speedDistribution(0.1f, 2.0f); // Adjust the range of speed as needed
 
         return speedDistribution(gen);
     }
 };
+
 //Pickable
 
 class Pickable : public Sprites
