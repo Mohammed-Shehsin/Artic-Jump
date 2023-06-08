@@ -127,11 +127,34 @@ public:
             }
         }
     }
+    void incrementBonusPoints(int points)
+    {
+        bonusPoints += points;
+    }
 
-   void update(const std::vector<std::unique_ptr<Immovable>>& platforms,const sf::RenderWindow& window)
+    void incrementLives()
+    {
+        if (lives < 3)
+        {
+            lives++;
+        }
+    }
+
+    int getLives() const
+    {
+        return lives;
+    }
+
+    int getBonusPoints() const
+    {
+        return bonusPoints;
+    }
+
+  void update(const std::vector<std::unique_ptr<Immovable>>& platforms,const sf::RenderWindow& window,int &life)
     {
         moveInDirection();
         collision(platforms);
+        life=getLives();
 
         // Check collision with the window boundaries
         sf::FloatRect playerBounds = getGlobalBounds();
@@ -174,28 +197,6 @@ public:
 
     }
 
-    void incrementBonusPoints(int points)
-    {
-        bonusPoints += points;
-    }
-
-    void incrementLives()
-    {
-        if (lives < 3)
-        {
-            lives++;
-        }
-    }
-
-    int getLives() const
-    {
-        return lives;
-    }
-
-    int getBonusPoints() const
-    {
-        return bonusPoints;
-    }
 
 private:
     float speed;
