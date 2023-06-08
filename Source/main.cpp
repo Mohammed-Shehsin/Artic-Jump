@@ -129,7 +129,7 @@ int main()
 
     objects.push_back(gold.get());
 
-    int score = 0;
+    const int bonus = 5;
 
     while (window.isOpen())
     {
