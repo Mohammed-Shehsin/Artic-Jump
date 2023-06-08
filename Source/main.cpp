@@ -170,8 +170,11 @@ int main()
 //        }
 
   // Check collision with hearts
+        
+        //
         if (hearts->checkCollision(*player)) {
             createHeart(hearts,window);
+            player->incrementLives;
             cout<<"heart"<<endl;
        }
 
@@ -179,6 +182,7 @@ int main()
         if (gold->checkCollision(*player)) {
             // Handle gold collision
             createGold(gold,window);
+            player->incrementBonusPoints(bonus);
             score += 5;
         }
 
