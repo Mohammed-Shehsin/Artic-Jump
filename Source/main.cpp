@@ -130,7 +130,7 @@ int main()
     objects.push_back(gold.get());
 
     const int bonus = 5;
-
+    int score=0;
     while (window.isOpen())
     {
         sf::Event event;
