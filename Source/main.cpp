@@ -1,4 +1,4 @@
-std::pair<float, float> getRandomPosition()   //To get Random positions {Fireballs}
+std::pair<float, float> getRandomPosition(const sf::RenderWindow& window )   //To get Random positions {Fireballs}
 {
     static std::random_device rd;
     static std::mt19937 gen(rd());
