@@ -164,12 +164,18 @@ int main()
         }
 
 
+      
         // Check collision with fireballs
-//        for (const auto& fireball : fireballs) {
-//            if (fireball->checkCollision(*player)) {
-//                // Handle fireball collision
-//            }
-//        }
+        for (const auto& fireball : fireballs) {
+            if (fireball->checkCollision(*player)) {
+            restartGame(player,fireballTexturePath ,fireballs);
+            player->setPosition(700.0f, 350.0f);
+            fireballs.clear();
+            createFireballs(fireballTexturePath,fireballs);
+            
+
+            }
+        }
 
   // Check collision with hearts
         
