@@ -141,6 +141,8 @@ int main()
         }
         // Update player movement and collision
         player->update(platforms);
+        hearts->update(window);
+        gold->update(window);
 
         for (const auto& fireball : fireballs) {
             fireball->moveInDirection();
