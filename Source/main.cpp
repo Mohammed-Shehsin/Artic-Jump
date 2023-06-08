@@ -130,7 +130,8 @@ int main()
     objects.push_back(gold.get());
 
     const int bonus = 5;
-    int score=0;
+    int life;
+    
     while (window.isOpen())
     {
         sf::Event event;
@@ -140,7 +141,7 @@ int main()
                 window.close();
         }
         // Update player movement and collision
-        player->update(platforms);
+       player->update(platforms,window,life);
         hearts->update(window);
         gold->update(window);
 
@@ -174,7 +175,11 @@ int main()
             createFireballs(fireballTexturePath,fireballs);
             createHeart(hearts,window);
             createGold(gold,window);
-
+             if (life==0){
+                    window.close();
+                    player->resetLives();
+            }
+          
             }
         }
 
