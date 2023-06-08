@@ -29,17 +29,17 @@ std::pair<float, float> getRandomPosition(const sf::RenderWindow& window )   //T
 void createFireballs(std::string fireballTexturePath ,std::vector<std::unique_ptr<Fireball>> &fireballs ){   //Creating fireballs {3 Fireballs }
     
     std::unique_ptr<Fireball> fireball1 = std::make_unique<Fireball>(fireballTexturePath);
-    fireball1->setPosition(-900.0f, 300.0f );
-    fireball1->setScale(0.40f,0.40f);
+    fireball1->setPosition(0.0f, 450.0f );
+    fireball1->setScale(0.55f,0.55f);
     fireballs.push_back(std::move(fireball1));
     
     std::unique_ptr<Fireball> fireball2 = std::make_unique<Fireball>(fireballTexturePath);
-    fireball2->setPosition(-900.0f, -300.0f );
-    fireball2->setScale(0.40f,0.40f);
+    fireball2->setPosition(0.0f, 700.0f );
+    fireball2->setScale(0.55f,0.55f);
     fireballs.push_back(std::move(fireball2));
     std::unique_ptr<Fireball> fireball3 = std::make_unique<Fireball>(fireballTexturePath);
-    fireball3->setPosition(-900.0f, 0.0f );
-    fireball3->setScale(0.40f,0.40f);
+    fireball3->setPosition(0.0f, 0.0f );
+    fireball3->setScale(0.55f,0.55f);
     fireballs.push_back(std::move(fireball3));
     
     
