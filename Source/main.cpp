@@ -162,7 +162,35 @@ int main()
        player->update(platforms,window,life);
         hearts->update(window);
         gold->update(window);
-        
+               //Text initializing
+        sf::Text scoreText;
+        sf::Text livesText;
+
+
+        // Inside the main function or the game loop, initialize the font and set properties for the text objects:
+        sf::Font font;
+        if (!font.loadFromFile("C:\\Users\\moham\\OneDrive\\Documents\\build-game11-Desktop_Qt_6_4_3_MinGW_64_bit-Debug\\Arial.ttf") ){
+            // Error handling for font loading failure
+            std::cerr << "Failed to load font" << std::endl;
+        }
+
+        scoreText.setFont(font);
+        scoreText.setCharacterSize(24);
+        scoreText.setFillColor(sf::Color::White);
+
+        livesText.setFont(font);
+        livesText.setCharacterSize(24);
+        livesText.setFillColor(sf::Color::White);
+
+        // Inside the game loop or wherever you update the score and lives
+        int score = player->getBonusPoints();
+        int remainingLives = player->getLives();
+
+        scoreText.setString("Score: " + std::to_string(score));
+        scoreText.setPosition(10.0f, 10.0f); // Adjust the position as needed
+
+        livesText.setString("Lives: " + std::to_string(remainingLives));
+        livesText.setPosition(10.0f, 40.0f); // Adjust the position as needed
         if (life==0){
             player->resetLives();
             window.close();
