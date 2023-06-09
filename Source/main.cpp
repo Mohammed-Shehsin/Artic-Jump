@@ -44,6 +44,15 @@ void createFireballs(std::string fireballTexturePath ,std::vector<std::unique_pt
     
     
 }
+
+void resetFireballs(std::vector<std::unique_ptr<Fireball>>& fireballs) {
+    // Reset fireballs to their initial positions
+    fireballs[0]->setPosition(0.0f, 450.0f);
+    fireballs[1]->setPosition(0.0f, 700.0f);
+    fireballs[2]->setPosition(0.0f, 0.0f);
+}
+
+
 void restartGame(const std::unique_ptr<Player> &player,std::string fireballTexturePath ,std::vector<std::unique_ptr<Fireball>> &fireballs) {    
     // Reset the player's position and other game states
     player->setPosition(700.0f, 350.0f);
@@ -183,15 +192,13 @@ int main()
         // Check collision with fireballs
         for (const auto& fireball : fireballs) {
             if (fireball->checkCollision(*player)) {
-            restartGame(player,fireballTexturePath ,fireballs);
-            player->setPosition(700.0f, 350.0f);
-            fireballs.clear();
-            createFireballs(fireballTexturePath,fireballs);
-            createHeart(hearts,window);
-            createGold(gold,window);
-            life=player->getLives();
+                player->decreamentLive(1);
+                player->setPosition(700.0f, 350.0f);
+                resetFireballs(fireballs);
+                break;
             }
         }
+
 
   // Check collision with hearts
         
