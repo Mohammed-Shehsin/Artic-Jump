@@ -89,11 +89,13 @@ public:
         jumpHeight = 10.0f;
         isJumping = false;
         jumpKeyPressed = false;
-        lives = 3;
+        lives = 5;
         bonusPoints = 0;
         isIntersect=false;
     }
-
+    void resetScore(){
+        bonusPoints=0;
+    }
     void moveInDirection()
     {
         float directionx = 0.0f;
@@ -153,14 +155,20 @@ public:
         bonusPoints += points;
     }
 
-    void incrementLives()
+    void incrementLives(const int x)
     {
-        if (lives < 3)
+        if (lives < 5)
         {
-            lives++;
+           lives= lives+x;
         }
     }
+  void decreamentLive(const int x)
+    {
+        if (lives>0){
+            lives=lives-x;
+        }
 
+    }
     int getLives() const
     {
         return lives;
@@ -170,7 +178,9 @@ public:
     {
         return bonusPoints;
     }
-
+    void resetLives (){
+        lives=5;
+    }
   void update(const std::vector<std::unique_ptr<Immovable>>& platforms,const sf::RenderWindow& window,int &life)
     {
         moveInDirection();
