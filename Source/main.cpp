@@ -53,13 +53,13 @@ void resetFireballs(std::vector<std::unique_ptr<Fireball>>& fireballs) {
 }
 
 
-void restartGame(const std::unique_ptr<Player> &player,std::string fireballTexturePath ,std::vector<std::unique_ptr<Fireball>> &fireballs) {    
-    // Reset the player's position and other game states
-    player->setPosition(700.0f, 350.0f);
-    fireballs.clear();
-    createFireballs(fireballTexturePath,fireballs);  // Function to create initial fireballs
+// void restartGame(const std::unique_ptr<Player> &player,std::string fireballTexturePath ,std::vector<std::unique_ptr<Fireball>> &fireballs) {    
+//     // Reset the player's position and other game states
+//     player->setPosition(700.0f, 350.0f);
+//     fireballs.clear();
+//     createFireballs(fireballTexturePath,fireballs);  // Function to create initial fireballs
     
-}
+// }   
 void createGold(std::unique_ptr<Gold> &gold ,const sf::RenderWindow& window ){   // Creating Gold object
     std::pair<float, float> position = getRandomPosition(window);
     gold->setPosition(position.first, position.second);
@@ -74,7 +74,9 @@ void createHeart(std::unique_ptr<Heart> &heart ,const sf::RenderWindow& window )
 
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode(1500, 900), "Platformer Game");
+    const int windowWidth = 1500;
+    const int windowHeight = 900;
+    sf::RenderWindow window(sf::VideoMode(windowWidth, windowHeight), "Artic Jump");
 
     // Load textures
     std::string playerTexturePath = "C:\\Users\\moham\\OneDrive\\Documents\\build-game11-Desktop_Qt_6_4_3_MinGW_64_bit-Debug\\player_texture.png";
@@ -83,13 +85,15 @@ int main()
     std::string platformTexturePath = "C:\\Users\\moham\\OneDrive\\Documents\\build-game11-Desktop_Qt_6_4_3_MinGW_64_bit-Debug\\wall.png";
     std::string fireballTexturePath = "C:\\Users\\moham\\OneDrive\\Documents\\build-game11-Desktop_Qt_6_4_3_MinGW_64_bit-Debug\\CroppedFireball.png";
     std::string backGroundTexurePath = "C:\\Users\\moham\\OneDrive\\Documents\\build-game11-Desktop_Qt_6_4_3_MinGW_64_bit-Debug\\actic.png";
-
+    std::string startbgTexurePath = "C:\\Users\\moham\\OneDrive\\Documents\\build-game11-Desktop_Qt_6_4_3_MinGW_64_bit-Debug\\Arctic_Jump.png";
     // Create objects
-    std::unique_ptr<Player> player = std::make_unique<Player>(playerTexturePath);       // Player object
-    player->setPosition(500.0f, 350.0f);
+     std::unique_ptr<Player> player = std::make_unique<Player>(playerTexturePath);
+    player->setPosition(700.0f, 350.0f);
     player->setScale(0.15f,0.15f);
+    std::unique_ptr<Immovable> startbg= std::make_unique<Immovable>(startbgTexurePath);
+    startbg->setTextureRect(sf::IntRect(0, 0, window.getSize().x, window.getSize().y));
 
-    std::unique_ptr<Immovable> background = std::make_unique<Immovable>(backGroundTexurePath);   // Background
+    std::unique_ptr<Immovable> background = std::make_unique<Immovable>(backGroundTexurePath);
     background->setTextureRect(sf::IntRect(0, 0, window.getSize().x, window.getSize().y));
 
 
@@ -126,6 +130,7 @@ int main()
 
     // Create a vector of Sprites
     std::vector<Sprites*> objects;
+    objects.push_back((startbg.get()));
     objects.push_back((background.get()));
     objects.push_back(player.get());
     for (const auto& platform : platforms) {
@@ -149,7 +154,33 @@ int main()
     }
     music.setLoop(true);
     music.play();
-    
+    // Inside the main function or the game loop, initialize the font and set properties for the text objects:
+    sf::Font font;
+    if (!font.loadFromFile("C:\\Users\\moham\\OneDrive\\Documents\\build-game11-Desktop_Qt_6_4_3_MinGW_64_bit-Debug\\Arial.ttf") ){
+        // Error handling for font loading failure
+        std::cerr << "Failed to load font" << std::endl;
+    }
+
+    // Start Text
+
+    sf::Text startText;
+    startText.setFont(font);
+    startText.setCharacterSize(60);
+    startText.setFillColor(sf::Color::Red);
+    startText.setString("START");
+    startText.setPosition(880.0f, 620.0f);
+    bool gameEnded = false;
+    bool gameStarted = false;
+
+    // Restart button
+    sf::Text restartButton;
+    restartButton.setFont(font);
+    restartButton.setCharacterSize(60);
+    restartButton.setFillColor(sf::Color::Red);
+    restartButton.setString("RESTART");
+    restartButton.setPosition(840.0f, 620.0f);
+    bool restartClicked = false;
+
     while (window.isOpen())
     {
         sf::Event event;
@@ -157,7 +188,26 @@ int main()
         {
             if (event.type == sf::Event::Closed)
                 window.close();
+
+            else if (event.type == sf::Event::MouseButtonPressed) {
+                if (event.mouseButton.button == sf::Mouse::Left) {
+                    sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
+                    if (startText.getGlobalBounds().contains(mousePosition.x, mousePosition.y)) {
+
+                        gameStarted = true;
+                    }
+                    if (restartButton.getGlobalBounds().contains(static_cast<float>(mousePosition.x), static_cast<float>(mousePosition.y))) {
+
+                        // Reset game variables
+                        player->resetLives();
+                        player->resetLives();
+
+                        restartClicked = true;
+                    }
+                }
+            }
         }
+
         // Update player movement and collision
        player->update(platforms,window,life);
         hearts->update(window);
@@ -165,15 +215,6 @@ int main()
                //Text initializing
         sf::Text scoreText;
         sf::Text livesText;
-
-
-        // Inside the main function or the game loop, initialize the font and set properties for the text objects:
-        sf::Font font;
-        if (!font.loadFromFile("C:\\Users\\moham\\OneDrive\\Documents\\build-game11-Desktop_Qt_6_4_3_MinGW_64_bit-Debug\\Arial.ttf") ){
-            // Error handling for font loading failure
-            std::cerr << "Failed to load font" << std::endl;
-        }
-
         scoreText.setFont(font);
         scoreText.setCharacterSize(24);
         scoreText.setFillColor(sf::Color::White);
@@ -191,11 +232,14 @@ int main()
 
         livesText.setString("Lives: " + std::to_string(remainingLives));
         livesText.setPosition(10.0f, 40.0f); // Adjust the position as needed
-        if (life==0){
-            player->resetLives();
-            window.close();
+//         if (life==0){
+//             player->resetLives();
+//             window.close();
 
-        }
+//         } 
+        if (gameStarted){
+        if (!gameEnded){
+        
         for (const auto& fireball : fireballs) {
             fireball->moveInDirection();
 
@@ -234,7 +278,7 @@ int main()
         if (hearts->checkCollision(*player)) {
             createHeart(hearts,window);
             player->incrementLives();
-            std::cout<<"heart"<<std::endl;
+          //  std::cout<<"heart"<<std::endl;
        }
 
         // Check collision with gold
@@ -247,13 +291,46 @@ int main()
 
         window.clear();
 
-        // Draw all the objects
-        for (const auto& object : objects) {
+         for (const auto& object : objects) {
             window.draw(*object);
         }
+        window.draw(scoreText);
+        window.draw(livesText);
 
+
+        if   (life==0){
+            player->resetLives();
+            gameEnded = true;
+
+//            window.close();
+            window.draw(*startbg);
+            window.draw(restartButton);
+        }
         window.display();
+
+        }
+
+        if (restartClicked) {
+
+        // Reset game variables
+        player->resetScore();
+        player->resetLives();
+
+        gameEnded = false;
+        restartClicked = false;
+        }
+
+        }
+        else {
+        window.clear();
+        window.draw(*startbg);
+        window.draw(startText);
+        window.display();
+        }
+
+
     }
 
     return 0;
 }
+
