@@ -26,23 +26,22 @@ std::pair<float, float> getRandomPosition(const sf::RenderWindow& window )   //T
 
     return std::make_pair(x, y);
 }
-void createFireballs(std::string fireballTexturePath ,std::vector<std::unique_ptr<Fireball>> &fireballs ){   //Creating fireballs {3 Fireballs }
-    
+void createFireballs(std::string fireballTexturePath ,std::vector<std::unique_ptr<Fireball>> &fireballs ){
+
     std::unique_ptr<Fireball> fireball1 = std::make_unique<Fireball>(fireballTexturePath);
-    fireball1->setPosition(0.0f, 450.0f );
-    fireball1->setScale(0.55f,0.55f);
+    fireball1->setPosition(0.0f, 420.0f );
+    fireball1->setScale(0.50f,0.50f);
     fireballs.push_back(std::move(fireball1));
-    
     std::unique_ptr<Fireball> fireball2 = std::make_unique<Fireball>(fireballTexturePath);
-    fireball2->setPosition(0.0f, 700.0f );
-    fireball2->setScale(0.55f,0.55f);
+    fireball2->setPosition(0.0f, 780.0f );
+    fireball2->setScale(0.50f,0.50f);
     fireballs.push_back(std::move(fireball2));
     std::unique_ptr<Fireball> fireball3 = std::make_unique<Fireball>(fireballTexturePath);
-    fireball3->setPosition(0.0f, 0.0f );
-    fireball3->setScale(0.55f,0.55f);
+    fireball3->setPosition(0.0f, 10.0f );
+    fireball3->setScale(0.50f,0.50f);
     fireballs.push_back(std::move(fireball3));
-    
-    
+
+
 }
 
 void resetFireballs(std::vector<std::unique_ptr<Fireball>>& fireballs) {
