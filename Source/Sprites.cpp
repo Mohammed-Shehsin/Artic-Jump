@@ -30,7 +30,27 @@ public:
         // Set the texture for the sprite
         this->sf::Sprite::setTexture(texture);
     }
-    
+    protected:
+    void adjustPositionWithinBounds(const sf::FloatRect& bounds)
+    {
+        sf::Vector2f newPosition;
+
+        if (getGlobalBounds().left < bounds.left)
+            newPosition.x = bounds.left;
+        else if (getGlobalBounds().left + getGlobalBounds().width > bounds.left + bounds.width)
+            newPosition.x = bounds.left + bounds.width - getGlobalBounds().width;
+        else
+            newPosition.x = getPosition().x;
+
+        if (getGlobalBounds().top < bounds.top)
+            newPosition.y = bounds.top;
+        else if (getGlobalBounds().top + getGlobalBounds().height > bounds.top + bounds.height)
+            newPosition.y = bounds.top + bounds.height - getGlobalBounds().height;
+        else
+            newPosition.y = getPosition().y;
+
+        setPosition(newPosition);
+    }
 private:
     sf::Texture texture;
 };
