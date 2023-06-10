@@ -273,11 +273,11 @@ public:
 private:
     float speed;
 
-    float getRandomSpeed()
+   float getRandomSpeed()
     {
-        std::random_device rd;
+        static std::random_device rd; // Static object to ensure it's initialized only once
         std::mt19937 gen(rd());
-        std::uniform_real_distribution<float> speedDistribution(0.1f, 2.0f); // Adjust the range of speed as needed
+        std::uniform_real_distribution<float> speedDistribution(0.5f, 2.8f); // Adjust the range of speed as needed
 
         return speedDistribution(gen);
     }
