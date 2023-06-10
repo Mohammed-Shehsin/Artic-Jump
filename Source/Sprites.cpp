@@ -398,46 +398,49 @@ public:
 
 
 };
-class Button : public Sprites
-{
-public:
-    Button(const std::string& buttonText, const sf::Font& font, unsigned int characterSize, const sf::Vector2f& position)
-    {
-        text.setString(buttonText);
-        text.setFont(font);
-        text.setCharacterSize(characterSize);
-        text.setPosition(position);
-        text.setFillColor(sf::Color::White);
 
-        // Create a background rectangle for the button
-        background.setSize(sf::Vector2f(text.getLocalBounds().width + 20, text.getLocalBounds().height + 10));
-        background.setPosition(position);
-        background.setFillColor(sf::Color(50, 50, 50));
+// not needed at the moment
 
-        // Center the text within the button
-        sf::FloatRect textBounds = text.getLocalBounds();
-        text.setOrigin(textBounds.left + textBounds.width / 2, textBounds.top + textBounds.height / 2);
-        text.setPosition(position.x + background.getSize().x / 2, position.y + background.getSize().y / 2);
-    }
+// class Button : public Sprites
+// {
+// public:
+//     Button(const std::string& buttonText, const sf::Font& font, unsigned int characterSize, const sf::Vector2f& position)
+//     {
+//         text.setString(buttonText);
+//         text.setFont(font);
+//         text.setCharacterSize(characterSize);
+//         text.setPosition(position);
+//         text.setFillColor(sf::Color::White);
 
-    bool isMouseOver(const sf::RenderWindow& window) const
-    {
-        sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
-        return background.getGlobalBounds().contains(static_cast<float>(mousePosition.x), static_cast<float>(mousePosition.y));
-    }
+//         // Create a background rectangle for the button
+//         background.setSize(sf::Vector2f(text.getLocalBounds().width + 20, text.getLocalBounds().height + 10));
+//         background.setPosition(position);
+//         background.setFillColor(sf::Color(50, 50, 50));
+
+//         // Center the text within the button
+//         sf::FloatRect textBounds = text.getLocalBounds();
+//         text.setOrigin(textBounds.left + textBounds.width / 2, textBounds.top + textBounds.height / 2);
+//         text.setPosition(position.x + background.getSize().x / 2, position.y + background.getSize().y / 2);
+//     }
+
+//     bool isMouseOver(const sf::RenderWindow& window) const
+//     {
+//         sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
+//         return background.getGlobalBounds().contains(static_cast<float>(mousePosition.x), static_cast<float>(mousePosition.y));
+//     }
 
 
 
 
 
 
-private:
-    void draw(sf::RenderTarget& target, sf::RenderStates states) const override
-    {
-        target.draw(background, states);
-        target.draw(text, states);
-    }
+// private:
+//     void draw(sf::RenderTarget& target, sf::RenderStates states) const override
+//     {
+//         target.draw(background, states);
+//         target.draw(text, states);
+//     }
 
-    sf::RectangleShape background;
-    sf::Text text;
-};
+//     sf::RectangleShape background;
+//     sf::Text text;
+// };
