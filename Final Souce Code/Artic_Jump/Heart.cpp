@@ -14,9 +14,52 @@ bool Heart::checkCollision(Player& player)
     //        }
     return false;
 }
-
-void Heart::update(const sf::RenderWindow& window)
+void Heart::collision(const std::vector<std::unique_ptr<Immovable>>& platforms) //check collision with Platforms and Heart objects for avoiding the platforms
 {
+    for (const auto& platform : platforms)
+    {
+        sf::FloatRect heartBounds = getGlobalBounds();
+        sf::FloatRect platformBounds = platform->getGlobalBounds();
+
+        if (heartBounds.intersects(platformBounds))
+        {
+            // Calculate the overlap between the player and platform
+            float overlapX = std::min(heartBounds.left + heartBounds.width, platformBounds.left + platformBounds.width) -
+                             std::max(heartBounds.left, heartBounds.left);
+            float overlapY = std::min(heartBounds.top + heartBounds.height, platformBounds.top + platformBounds.height) -
+                             std::max(heartBounds.top, heartBounds.top);
+
+            // Determine the axis of minimum penetration
+            if (overlapX < overlapY)
+            {
+                // Adjust player position horizontally
+                if (heartBounds.left < platformBounds.left)
+                {
+                    setPosition(platformBounds.left - heartBounds.width, getPosition().y);
+                }
+                else
+                {
+                    setPosition(platformBounds.left + platformBounds.width, getPosition().y);
+                }
+            }
+            else
+            {
+                // Adjust player position vertically
+                if (heartBounds.top < platformBounds.top)
+                {
+                    setPosition(getPosition().x, platformBounds.top - heartBounds.height);
+                }
+                else
+                {
+                    setPosition(getPosition().x, platformBounds.top + platformBounds.height);
+                }
+            }
+        }
+    }
+}
+void Heart::update(const std::vector<std::unique_ptr<Immovable>>& platforms, const sf::RenderWindow& window)        // Keep heart objects inside the window
+{
+    collision(platforms);                           //implementing collision with platform
     // Check collision with the window boundaries
     sf::FloatRect heartBounds = getGlobalBounds();
     sf::FloatRect windowBounds(0.0f, 0.0f, window.getSize().x, window.getSize().y);
