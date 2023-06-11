@@ -15,6 +15,8 @@ int main()
 
     const int windowWidth = 1500;
     const int windowHeight = 900;
+    const int numBlastFrames = 7;
+    const int blastFrameDuration = 5;
     sf::RenderWindow window(sf::VideoMode(windowWidth, windowHeight), "Artic Jump");
 
     // Load textures
@@ -79,7 +81,21 @@ int main()
     objects.push_back(hearts.get());
 
     objects.push_back(gold.get());
+      // Blast sprite
+    sf::Texture blastTexture;
+    if (!blastTexture.loadFromFile("C:\\Users\\moham\\OneDrive\\Documents\\build-game11-Desktop_Qt_6_4_3_MinGW_64_bit-Debug\\blast_.png")) {
+        return EXIT_FAILURE;
+    }
 
+    sf::Sprite blastSprite(blastTexture);
+    int blastFrame = 0;
+    int blastFrameCounter = 0;
+    bool blasting = false;
+    blastSprite.setTextureRect(sf::IntRect(0, 0, blastTexture.getSize().x / numBlastFrames, blastTexture.getSize().y));
+    blastSprite.setOrigin(blastSprite.getTextureRect().width / 2, blastSprite.getTextureRect().height / 2);
+    blastSprite.setPosition(windowWidth / 2, windowHeight / 2);
+
+    sf::Vector2f blastPosition;
     const int bouns = 5;
     int life;
     // For music
@@ -202,12 +218,16 @@ int main()
 
 
 
-                // Check collision with fireballs
+              // Check collision with fireballs
                 for (const auto& fireball : fireballs) {
                     if (fireball->checkCollision(*player)) {
                         player->decreamentLive(1);
                         player->setPosition(700.0f, 350.0f);
                         resetFireballs(fireballs);
+                        blastPosition = player->getPosition();
+                        blasting = true;
+                        blastFrame = 0;
+                        blastFrameCounter = 0;
                         createGold(gold,window);
                         createHeart(hearts,window);
                         break;
@@ -234,6 +254,20 @@ int main()
                 for (const auto& object : objects) {
                     window.draw(*object);
                 }
+                 if (blasting) {
+            blastFrameCounter++;
+            if (blastFrameCounter >= blastFrameDuration) {
+                blastFrame++;
+                blastFrameCounter = 0;
+                if (blastFrame >= numBlastFrames) {
+                    blasting = false;
+                    blastFrame = 0;
+                }
+            }
+            blastSprite.setTextureRect(sf::IntRect(blastFrame * blastSprite.getTextureRect().width, 0, blastSprite.getTextureRect().width, blastSprite.getTextureRect().height));
+            blastSprite.setPosition(blastPosition);
+            window.draw(blastSprite);
+        }
                 window.draw(scoreText);
                 window.draw(livesText);
 
