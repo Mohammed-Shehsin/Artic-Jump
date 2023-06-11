@@ -158,7 +158,7 @@ int main()
     blastSprite.setOrigin(blastSprite.getTextureRect().width / 2, blastSprite.getTextureRect().height / 2);
     blastSprite.setPosition(windowWidth / 2, windowHeight / 2);
 
-    sf::Vector2f blastPosition
+    sf::Vector2f blastPosition;
     // For music
     sf::Music music;
     if (!music.openFromFile("C:\\Users\\moham\\OneDrive\\Documents\\build-game11-Desktop_Qt_6_4_3_MinGW_64_bit-Debug\\2gucu-s4oo4.wav"))
