@@ -75,6 +75,8 @@ int main()
 {
     const int windowWidth = 1500;
     const int windowHeight = 900;
+    const int numBlastFrames = 7;
+    const int blastFrameDuration = 5;
     sf::RenderWindow window(sf::VideoMode(windowWidth, windowHeight), "Artic Jump");
 
     // Load textures
