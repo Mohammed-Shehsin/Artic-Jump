@@ -209,7 +209,7 @@ int main()
 
         // Update player movement and collision
        player->update(platforms,window,life);
-        hearts->update(window);
+        hearts->update(platforms,window);
         gold->update(window);
                //Text initializing
         sf::Text scoreText;
