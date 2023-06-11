@@ -222,9 +222,9 @@ int main()
                 for (const auto& fireball : fireballs) {
                     if (fireball->checkCollision(*player)) {
                         player->decreamentLive(1);
+                        blastPosition = player->getPosition();
                         player->setPosition(700.0f, 350.0f);
                         resetFireballs(fireballs);
-                        blastPosition = player->getPosition();
                         blasting = true;
                         blastFrame = 0;
                         blastFrameCounter = 0;
