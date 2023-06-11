@@ -151,8 +151,8 @@ int main()
         }
 
         player->update(platforms,window,life);
-        hearts->update(window);
-        gold->update(window);
+        hearts->update(platforms,window);
+        gold->update(platforms,window);
         //Text initializing
         sf::Text scoreText;
         sf::Text livesText;
