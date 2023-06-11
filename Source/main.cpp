@@ -144,7 +144,21 @@ int main()
 
     const int bonus = 5;
     int life;
-    
+     // Blast sprite
+    sf::Texture blastTexture;
+    if (!blastTexture.loadFromFile("C:\\Users\\moham\\OneDrive\\Documents\\build-game11-Desktop_Qt_6_4_3_MinGW_64_bit-Debug\\blast_.png")) {
+        return EXIT_FAILURE;
+    }
+
+    sf::Sprite blastSprite(blastTexture);
+    int blastFrame = 0;
+    int blastFrameCounter = 0;
+    bool blasting = false;
+    blastSprite.setTextureRect(sf::IntRect(0, 0, blastTexture.getSize().x / numBlastFrames, blastTexture.getSize().y));
+    blastSprite.setOrigin(blastSprite.getTextureRect().width / 2, blastSprite.getTextureRect().height / 2);
+    blastSprite.setPosition(windowWidth / 2, windowHeight / 2);
+
+    sf::Vector2f blastPosition
     // For music
     sf::Music music;
     if (!music.openFromFile("C:\\Users\\moham\\OneDrive\\Documents\\build-game11-Desktop_Qt_6_4_3_MinGW_64_bit-Debug\\2gucu-s4oo4.wav"))
@@ -266,6 +280,20 @@ int main()
                 player->decreamentLive(1);
                 player->setPosition(700.0f, 350.0f);
                 resetFireballs(fireballs);
+                 blastPosition = player->getPosition();
+
+                blasting = true;
+                //blastSound.play();
+
+                blastFrame = 0;
+                blastFrameCounter = 0;
+//                // Create blast animation
+//                Blast blast(blastTextures, 10.0f);  // Adjust the frame rate as needed
+//                blast.setPosition(fireball->getPosition());
+
+                createGold(gold,window);
+                createHeart(hearts,window);
+                
                 break;
             }
         }
@@ -292,6 +320,20 @@ int main()
 
          for (const auto& object : objects) {
             window.draw(*object);
+        }
+             if (blasting) {
+            blastFrameCounter++;
+            if (blastFrameCounter >= blastFrameDuration) {
+                blastFrame++;
+                blastFrameCounter = 0;
+                if (blastFrame >= numBlastFrames) {
+                    blasting = false;
+                    blastFrame = 0;
+                }
+            }
+            blastSprite.setTextureRect(sf::IntRect(blastFrame * blastSprite.getTextureRect().width, 0, blastSprite.getTextureRect().width, blastSprite.getTextureRect().height));
+            blastSprite.setPosition(blastPosition);
+            window.draw(blastSprite);
         }
         window.draw(scoreText);
         window.draw(livesText);
